@@ -1,5 +1,7 @@
 :-consult(data).
-
+:- dynamic item/3.
+:- dynamic alternative/2.
+:- dynamic boycott_company/2.
 
 % 3
 getItemsInOrderById(CustName,OrderId,Items) :-
@@ -71,3 +73,22 @@ getTheDifferenceInPriceBetweenItemAndAlternative(Item, AltItem, DiffPrice) :-
     alternative(Item, AltItem) ,
     item(AltItem,_,Price2),
     DiffPrice is Price1 - Price2.
+
+% 12
+add_item(ItemName, CompanyName, Price) :-
+    assert(item(ItemName, CompanyName, Price)).
+
+remove_item(ItemName, CompanyName, Price) :-
+    retract(item(ItemName, CompanyName, Price)).
+
+add_boyycott(CompanyName, Justification) :-
+    assert(boycott_company(CompanyName, Justification)).
+
+remove_boycott(CompanyName, Justification) :-
+    retract(boycott_company(CompanyName, Justification)).
+
+add_alternative(Item, AltItem) :-
+    assert(alternative(Item, AltItem)).
+
+remove_alternative(Item, AltItem) :-
+    retract(alternative(Item, AltItem)).
