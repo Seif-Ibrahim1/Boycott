@@ -35,6 +35,18 @@ isBoycott(Name) :-
      boycott_company(Company, _)
    ).
 
+% 7
+whyToBoycott(Name, Justification) :-
+item(Name, Company, _) -> boycott_company(Company, Justification)
+;boycott_company(Name, Justification).
+
+% 8
+getTheDifferenceInPriceBetweenItemAndAlternative(Item, AltItem, DiffPrice) :-
+    item(Item,_,Price1) ,
+    alternative(Item, AltItem) ,
+    item(AltItem,_,Price2),
+    DiffPrice is Price1 - Price2.
+
 % 9
 replaceBoycottItemsFromAnOrder(UserName, OrderId, NewList) :-
     getItemsInOrderById(UserName, OrderId, Items),
@@ -59,11 +71,3 @@ replaceItems([Item|Rest], [NewItem|NewRest]) :-
 calcPriceAfterReplacingBoycottItemsFromAnOrder(UserName, OrderId, NewList, TotalPrice) :-
     replaceBoycottItemsFromAnOrder(UserName, OrderId, NewList),
     calcTotalPrice(NewList, TotalPrice).
-
-
-
-
-% 7
-whyToBoycott(Name, Justification) :-
-    item(Name, Company, _) -> boycott_company(Company, Justification)
-    ;boycott_company(Name, Justification).
