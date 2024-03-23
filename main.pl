@@ -7,8 +7,11 @@ getItemsInOrderById(CustName,OrderId,Items) :-
     order(CustID,OrderId,Items).
 
 % 4
+getLength([], 0).
+getLength([Begin|End] , Count) :-
+    getLength(End ,Length),
+    Count is Length + 1.
+
 getNumOfItems(CustName, OrderId, Count) :-
     getItemsInOrderById(CustName, OrderId, Items),
-    length(Items, Count).
-    
-
+    getLength(Items, Count).
