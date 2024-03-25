@@ -9,13 +9,13 @@ append_to_list([], L, L). % base case
 append_to_list([H|T], L, [H|R]) :- append_to_list(T, L, R). % recursive case
 
 % check if an item is in a list
-list_member(X,[X|_]). % base case
-list_member(X,[_|T]) :- list_member(X,T). % recursive case
+member_in_list(H,[H|_]). % base case
+member_in_list(H,[_|T]) :- member_in_list(H,T). % recursive case
 
 % helper to get all orders of a customer by ID
 get_customer_orders(CustID, L, L2) :-
     order(CustID, OrderID, Items), % get order 
-    \+ list_member(order(CustID, OrderID, Items), L), % if the order is not in the list
+    \+ member_in_list(order(CustID, OrderID, Items), L), % if the order is not in the list
     append_to_list([order(CustID, OrderID, Items)], L, L1), % add the order
     get_customer_orders(CustID, L1, L2), !. % get the next order
 
